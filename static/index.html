@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Processor</title>
+</head>
+<body>
+<h1>URL Processor</h1>
+<form id="urlForm">
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" name="url" required>
+    <button type="submit">Process</button>
+</form>
+<div id="result"></div>
+
+<script>
+    document.getElementById('urlForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const url = document.getElementById('url').value;
+
+        const response = await fetch('/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+        });
+
+        const resultText = await response.text();
+        document.getElementById('result').innerText = resultText;
+    });
+</script>
+</body>
+</html>
